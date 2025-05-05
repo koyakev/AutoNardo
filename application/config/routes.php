@@ -57,3 +57,8 @@ $route['admin'] = 'admin/AdminController/index';
 $route['admin/login'] = 'admin/AdminController/login';
 $route['admin/verify'] = 'admin/AdminController/verify';
 $route['admin/logout'] = 'admin/AdminController/logout';
+
+$route['admin/cars_list'] = 'admin/AdminController/cars_list';
+$route['admin/cars_add'] = 'admin/AdminController/cars_add';
+$route['admin/cars_store'] = 'admin/AdminController/cars_store';
+$route['admin/car_view/(:any)'] = 'admin/AdminController/car_view/$1';
