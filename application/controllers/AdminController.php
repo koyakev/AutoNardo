@@ -9,52 +9,48 @@ class AdminController extends CI_Controller {
     }
 
     public function index() {
-        if($this->session->userdata('user')) {
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = "Admin Dashboard";
             $data['users'] = $this->User_model->get_users_count();
             $data['cars'] = $this->Car_model->get_cars_count();
+
+            $this->load->view('admin/header', $data);
             $this->load->view('admin/dashboard', $data);
+            $this->load->view('admin/footer');
         } else {
             redirect('admin/login');
         }
     }
 
     public function login() {
-        if($this->session->userdata('user')) {
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
             redirect('admin/');
         } else {
+            $data['title'] = "Admin Login";
+
+            $this->load->view('admin/header', $data);
             $this->load->view('admin/login');
+            $this->load->view('admin/footer');
         }
-    }
-
-    public function verify() {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-
-        $user = $this->User_model->login_user($email, $password);
-
-        if($user['status'] == 'success') {
-            $this->session->set_flashdata('message', $user['status']);
-            $this->session->set_userdata('user', $user['data']);
-            redirect('admin/');
-        } else {
-            $this->session->set_flashdata('message', $user['data']);
-            redirect('admin/login');
-        }
-    }
-
-    public function logout() {
-        $this->session->sess_destroy();
-
-        redirect('admin/login');
     }
 
     public function cars_list() {
+        $data['title'] = "Car List";
         $data['cars'] = $this->Car_model->get_cars();
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
         $this->load->view('admin/cars_list', $data);
+        $this->load->view('admin/footer');
     }
 
     public function cars_add() {
+        $data['title'] = "Add Car";
+        
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
         $this->load->view('admin/cars_add');
+        $this->load->view('admin/footer');
     }
 
     public function cars_store() {
@@ -93,7 +89,8 @@ class AdminController extends CI_Controller {
             'rental_price_per_day' => $rate,
             'condition_status' => $condition,
             'is_available' => 1,
-            'image' => $upload_data['file_name']
+            'image' => $upload_data['file_name'],
+            'created_at' => date('Y:m:d H:i:s')
         ];
 
         $insert = $this->Car_model->store_car($data);
@@ -102,7 +99,12 @@ class AdminController extends CI_Controller {
     }
 
     public function car_view($id) {
+        $data['title'] = $id;
         $data['car'] = $this->Car_model->get_car($id);
+        
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
         $this->load->view('admin/car_view', $data);
+        $this->load->view('admin/footer');
     }
 }

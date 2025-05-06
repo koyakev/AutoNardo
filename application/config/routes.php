@@ -49,16 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'UserController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin'] = 'admin/AdminController/index';
-$route['admin/login'] = 'admin/AdminController/login';
-$route['admin/verify'] = 'admin/AdminController/verify';
-$route['admin/logout'] = 'admin/AdminController/logout';
+$route['login'] = 'UserController/login';
+$route['car_view/(:any)'] = 'UserController/car_view/$1';
 
-$route['admin/cars_list'] = 'admin/AdminController/cars_list';
-$route['admin/cars_add'] = 'admin/AdminController/cars_add';
-$route['admin/cars_store'] = 'admin/AdminController/cars_store';
-$route['admin/car_view/(:any)'] = 'admin/AdminController/car_view/$1';
+$route['book'] = 'BookingController/book_rental';
+
+$route['auth/verify'] = 'AuthController/verify';
+$route['auth/logout'] = 'AuthController/logout';
+
+$route['admin'] = 'AdminController';
+$route['admin/login'] = 'AdminController/login';
+
+$route['admin/cars_list'] = 'AdminController/cars_list';
+$route['admin/cars_add'] = 'AdminController/cars_add';
+$route['admin/cars_store'] = 'AdminController/cars_store';
+$route['admin/car_view/(:any)'] = 'AdminController/car_view/$1';
