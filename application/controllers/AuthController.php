@@ -35,4 +35,40 @@ class AuthController extends CI_Controller {
 
         redirect('/');
     }
+
+    public function store() {
+        // Get input data
+        $full_name = $this->input->post('full_name');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $phone = $this->input->post('phone');
+        $address = $this->input->post('address');
+        $drivers_license_number = $this->input->post('drivers_license_number');
+        $drivers_license_expiry = $this->input->post('drivers_license_expiry');
+
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+        // Prepare data for insertion
+        $data = [
+            'full_name' => $full_name,
+            'email' => $email,
+            'password' => $hashed_password,
+            'phone' => $phone,
+            'address' => $address,
+            'drivers_license_number' => $drivers_license_number,
+            'drivers_license_expiry' => $drivers_license_expiry,
+        ];
+
+        // Save user data
+        $inserted = $this->User_model->register_user($data);
+
+        if ($inserted) {
+            $this->session->set_flashdata('message', 'Registration successful!');
+            redirect('/login');
+        } else {
+            $this->session->set_flashdata('message', 'Registration failed. Please try again.');
+            redirect('/register'); 
+        }
+    }
 }

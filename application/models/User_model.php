@@ -25,4 +25,8 @@ class User_model extends CI_Model {
             return ['status' => 'failed', 'data' => 'User not found'];
         }
     }
+
+    public function register_user($data) {
+        return $this->db->insert('users', $data);
+    }
 }

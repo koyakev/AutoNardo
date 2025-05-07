@@ -53,11 +53,13 @@ $route['default_controller'] = 'UserController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['register'] = 'UserController/register';
 $route['login'] = 'UserController/login';
 $route['car_view/(:any)'] = 'UserController/car_view/$1';
 
 $route['book'] = 'BookingController/book_rental';
 
+$route['auth/store'] = 'AuthController/store';
 $route['auth/verify'] = 'AuthController/verify';
 $route['auth/logout'] = 'AuthController/logout';
 
