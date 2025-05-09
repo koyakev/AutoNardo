@@ -59,6 +59,9 @@ $route['car_view/(:any)'] = 'UserController/car_view/$1';
 
 $route['book'] = 'BookingController/book_rental';
 
+$route['paymongo/webhook'] = 'PaymentController/webhook';
+
+
 $route['auth/store'] = 'AuthController/store';
 $route['auth/verify'] = 'AuthController/verify';
 $route['auth/logout'] = 'AuthController/logout';

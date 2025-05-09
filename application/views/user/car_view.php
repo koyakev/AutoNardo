@@ -9,6 +9,11 @@
 
 
 <img src="<?= base_url('uploads/' . $car['image']) ?>">
+<?php if($this->session->flashdata('message')): ?>
+        <div class="alert alert-danger">
+            <?= $this->session->flashdata('message') ?>
+        </div>
+    <?php endif; ?>
 
 <table>
     <tbody>
@@ -25,6 +30,7 @@
 </table>
 
 <form method="POST" action="<?= site_url('book') ?>">
+	
     <input type="date" name="start_date" id="start_date" required>
     <input type="date" name="end_date" id="end_date" required>
     <input type="text" id="price" value="0" readonly>
