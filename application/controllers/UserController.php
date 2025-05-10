@@ -18,6 +18,10 @@ class UserController extends CI_Controller {
         $this->load->view('user/login');
     }
 
+	public function register() {
+		$this->load->view('user/register');
+	}
+
     public function car_view($id) {
         $data['car'] = $this->Car_model->get_car($id);
 
