@@ -13,7 +13,7 @@
                     <th>Type</th>
                     <th>Brand</th>
                     <th>Model</th>
-                    <th>Transmission</th>
+                    <th >Transmission</th>
                     <th>Plate Number</th>
                     <th>Rate</th>
                     <th>Condition</th>

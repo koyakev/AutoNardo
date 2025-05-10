@@ -6,14 +6,12 @@ class Car_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_cars_count() {
-        $count = $this->db->count_all('cars');
-        return $count;
-    }
-
     public function get_cars() {
-        $data = $this->db->get('cars')->result_array();
-        return $data;
+        $cars = $this->db->get('cars');
+        return [
+            'cars' => $cars->result_array(),
+            'count' => $cars->num_rows()
+        ];
     }
 
     public function get_car($id) {
@@ -22,12 +20,22 @@ class Car_model extends CI_Model {
     }
 
     public function store_car($data) {
-        $data = $this->db->insert('cars', $data);
+        $car = $this->db->insert('cars', $data);
 
-        if($data) {
+        if($car) {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    public function update_car($id, $data) {
+        $car = $this->db->where('id', $id)->update('cars', $data);
+
+        if($car) {
+            return 'Car Edit Successful!';
+        } else {
+            return 'Car Edit Failed!';
         }
     }
 }

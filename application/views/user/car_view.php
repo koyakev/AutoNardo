@@ -6,8 +6,6 @@
     endif;
 ?>
 
-
-
 <img src="<?= base_url('uploads/' . $car['image']) ?>">
 
 <table>

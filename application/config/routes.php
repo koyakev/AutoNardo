@@ -61,6 +61,7 @@ $route['book'] = 'BookingController/book_rental';
 
 $route['auth/store'] = 'AuthController/store';
 $route['auth/verify'] = 'AuthController/verify';
+$route['auth/verify/(:any)'] = 'AuthController/verify/$1';
 $route['auth/logout'] = 'AuthController/logout';
 
 $route['admin'] = 'AdminController';
@@ -70,3 +71,9 @@ $route['admin/cars_list'] = 'AdminController/cars_list';
 $route['admin/cars_add'] = 'AdminController/cars_add';
 $route['admin/cars_store'] = 'AdminController/cars_store';
 $route['admin/car_view/(:any)'] = 'AdminController/car_view/$1';
+$route['admin/car_view/(:any)/edit'] = 'AdminController/car_update/$1';
+
+$route['admin/users_list'] = 'AdminController/users_list';
+$route['admin/user_view/(:any)'] = 'AdminController/user_view/$1';
+
+$route['admin/sales_view'] = 'AdminController/sales_view';

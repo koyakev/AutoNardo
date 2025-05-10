@@ -9,7 +9,7 @@ class UserController extends CI_Controller {
     }
 
     public function index() {
-        $data['cars'] = $this->Car_model->get_cars();
+        $data['cars'] = $this->Car_model->get_cars()['cars'];
 
         $this->load->view('user/landing', $data);
     }

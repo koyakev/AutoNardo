@@ -8,7 +8,7 @@ class AuthController extends CI_Controller {
         $this->load->model('User_model');
     }
 
-    public function verify() {
+    public function verify($level = '') {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
 
@@ -19,7 +19,7 @@ class AuthController extends CI_Controller {
             $this->session->set_flashdata('message', $user['status']);
             $this->session->set_userdata(['user' => $user['data'], 'isAdmin' => $user['data']->is_admin]);
 
-            if($user['data']->is_admin) {
+            if($user['data']->is_admin && $level == 'admin') {
                 redirect('admin/');
             } else {
                 redirect('/');

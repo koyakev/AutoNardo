@@ -7,7 +7,7 @@
 
 ?>
 
-<form method="POST" action="<?= site_url('auth/verify') ?>">
+<form method="POST" action="<?= site_url('auth/verify/' . 'admin') ?>">
     <input type="text" name="email">
     <input type="password" name="password">
     <button>Login</button>

@@ -1,29 +1,153 @@
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            const userChart = document.getElementById('userChart').getContext('2d');
+            $(document).ready(function() {
+                let years = <?= json_encode($yearly['years']); ?>;
+                let sales_json = <?= json_encode($yearly['sales']); ?>;
+                let sales = [];
+                let sales_json_monthly = <?= json_encode($monthly); ?>;
+                let sales_monthly = [];
+                let car_portions = <?= json_encode($car_portions) ?>;
+                let car_id = [];
+                let car_stats = [];
 
-            const user_chart = new Chart(userChart, {
-                type: 'grouped bar',
-                data: {
-                    labels: ['january', 'february', 'march'],
-                    datasets: [{
-                        label: "Monthly Users",
-                        data: [10, 20, 300],
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                sales_json.map(sale => {
+                    sales.push(sale["SUM(AMOUNT)"]);
+                })
+
+                sales_json_monthly.map(sale => {
+                    sales_monthly.push(sale["SUM(amount)"]);
+                })
+
+                car_portions.map(car => {
+                    car_id.push(car.car_id);
+                    car_stats.push(car.count);
+                })
+
+                let backgroundColors = generateColors(car_portions.length);
+                
+                const salesChartYearly = document.getElementById('salesChartYearly').getContext('2d');
+                const salesChartMonthly = document.getElementById('salesChartMonthly').getContext('2d');
+                const carsStats = document.getElementById('carStats').getContext('2d');
+
+                const cars_stats = new Chart(carsStats, {
+                    type: 'doughnut',
+                    data: {
+                        labels: car_id,
+                        datasets: [{
+                            label: 'Car Stats',
+                            data: car_stats,
+                            backgroundColor: backgroundColors,
+                            fill: false,
+                            tension: 0.3,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                // ticks: {
+                                //     callback: function(value) {
+                                //         return '₱' + value;
+                                //     }
+                                // }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Yearly Payments'
+                            }
                         }
                     }
-                }
+                })
+
+                const sales_chart_yearly = new Chart(salesChartYearly, {
+                    type: 'line',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                                label: '2025 Sales',
+                                data: sales,
+                                backgroundColor: '#2f2f2f',
+                                fill: false,
+                                tension: 0.3,
+                            }, {
+                                label: 'Target Sales',
+                                data: [65000, 65000, 65000],
+                                backgroundColor: '#F0FFFF',
+                                fill: false,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₱' + value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Yearly Payments'
+                            }
+                        }
+                    }
+                })
+
+                const sales_chart_monthly = new Chart(salesChartMonthly, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: '2025 Monthly Sales',
+                            data: sales_monthly,
+                            backgroundColor: '#2f2f2f',
+                            fill: false,
+                            tension: 0.3,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₱' + value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Yearly Payments'
+                            }
+                        }
+                    }
+                })
             });
-        </script> -->
+
+            function generateColors(count) {
+                const colors = [];
+                for (let i = 0; i < count; i++) {
+                    // Generate random hex color
+                    const color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                    colors.push(color);
+                }
+                return colors;
+            }
+
+        </script>
     </body>
 </html>
