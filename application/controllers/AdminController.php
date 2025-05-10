@@ -180,4 +180,13 @@ class AdminController extends CI_Controller {
         $this->load->view('admin/sales_view');
         $this->load->view('admin/footer');
     }
+
+    public function users_add() {
+        $data['title'] = "Create User";
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
+        $this->load->view('admin/users_add');
+        $this->load->view('admin/footer');
+    }
 }

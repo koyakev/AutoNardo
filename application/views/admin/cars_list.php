@@ -1,7 +1,4 @@
 <div class="m-5">
-    <?php if($this->session->flashdata('message')): ?>
-        <?= $this->session->flashdata('message'); ?>
-    <?php endif; ?>
 
     <a class="btn btn-dark my-2" href="<?= site_url('admin/cars_add') ?>">Add Car</a>
 
@@ -36,3 +33,28 @@
         </table>
     </div>
 </div>
+
+<div id="messageModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5><?= $this->session->flashdata('message') ?></h5>
+            </div>
+            
+            <div class="modal-footer">
+                <form method="POST">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if($this->session->flashdata('message')): ?>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            let messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            messageModal.show();
+        })
+    </script>
+<?php endif; ?>

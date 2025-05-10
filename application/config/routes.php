@@ -78,5 +78,7 @@ $route['admin/car_view/(:any)/edit'] = 'AdminController/car_update/$1';
 
 $route['admin/users_list'] = 'AdminController/users_list';
 $route['admin/user_view/(:any)'] = 'AdminController/user_view/$1';
+$route['admin/users_add'] = 'AdminController/users_add';
+$route['admin/store_user'] = 'AuthController/store';
 
 $route['admin/sales_view'] = 'AdminController/sales_view';

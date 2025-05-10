@@ -1,49 +1,51 @@
-<img src="<?= base_url('uploads/' . $car['image']) ?>">
+<div class="text-center container my-5 w-50">
+    <img src="<?= base_url('uploads/' . $car['image']) ?>" class="img-fluid h-25 rounded shadow">
 
-<table>
-    <tbody>
-        <tr>
-            <td>ID:</td>
-            <td><?= $car['id'] ?></td>
-        </tr>
-        <tr>
-            <td>Type:</td>
-            <td><?= $car['car_type'] ?></td>
-        </tr>
-        <tr>
-            <td>Brand:</td>
-            <td><?= $car['make'] ?></td>
-        </tr>
-        <tr>
-            <td>Model:</td>
-            <td><?= $car['model'] ?></td>
-        </tr>
-        <tr>
-            <td>Transmission:</td>
-            <td><?= $car['transmission'] ?></td>
-        </tr>
-        <tr>
-            <td>Plate Number:</td>
-            <td><?= $car['plate_number'] ?></td>
-        </tr>
-        <tr>
-            <td>Rate:</td>
-            <td><?= $car['rental_price_per_day'] ?></td>
-        </tr>
-        <tr>
-            <td>Condition:</td>
-            <td><?= $car['condition_status'] ?></td>
-        </tr>
-        <tr>
-            <td>Available:</td>
-            <td><?= $car['is_available'] ?></td>
-        </tr>
-        <tr>
-            <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_data">Edit</button></td>
-            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_delete">Delete</button></td>
-        </tr>
-    </tbody>
-</table>
+    <div class="my-4 p-3 bg-white rounded shadow">
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>ID:</td>
+                    <td><?= $car['id'] ?></td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td><?= $car['car_type'] ?></td>
+                </tr>
+                <tr>
+                    <td>Brand:</td>
+                    <td><?= $car['make'] ?></td>
+                </tr>
+                <tr>
+                    <td>Model:</td>
+                    <td><?= $car['model'] ?></td>
+                </tr>
+                <tr>
+                    <td>Transmission:</td>
+                    <td><?= $car['transmission'] ?></td>
+                </tr>
+                <tr>
+                    <td>Plate Number:</td>
+                    <td><?= $car['plate_number'] ?></td>
+                </tr>
+                <tr>
+                    <td>Rate:</td>
+                    <td><?= $car['rental_price_per_day'] ?></td>
+                </tr>
+                <tr>
+                    <td>Available:</td>
+                    <td><?= $car['is_available'] ?></td>
+                </tr>
+                <tr>
+                    <td colspan=2 align=right>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_data">Edit</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_delete">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div id="edit_data" class="modal fade">
     <div class="modal-dialog">
@@ -61,14 +63,6 @@
                     <div class="mb-3">
                         <label class="form-label">Rate:</label>
                         <input type="number" class="form-control" step="0.01" name="rate" value="<?= $car['rental_price_per_day'] ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Condition:</label>
-                        <select class="form-select" name="condition">
-                            <option <?= $car['condition_status'] == "Brand New" ? 'selected' : '' ?>>Brand New</option>
-                            <option <?= $car['condition_status'] == "2nd Hand" ? 'selected' : '' ?>>2nd Hand</option>
-                        </select>
                     </div>
 
                     <div class="mb-3">

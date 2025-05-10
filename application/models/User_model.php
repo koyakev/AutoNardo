@@ -35,6 +35,9 @@ class User_model extends CI_Model {
 
     public function get_user($id) {
         return $this->db->where('id', $id)->get('users')->row_array();
+    }
 
+    public function get_last_user_id($is_admin) {
+        return $this->db->where('is_admin', $is_admin)->order_by('created_at', 'desc')->limit(1)->get('users')->row();
     }
 }
