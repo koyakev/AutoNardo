@@ -104,4 +104,14 @@ class Payment_model extends CI_Model
         
         return $cars->result_array();
     }
+
+    public function gett_yearly_rating() {
+        $year = intval(date('Y'));
+        $lyear = $year - 1;
+        $l2year = $year - 2;
+
+        return [
+            $year => ($year/10000)
+        ];
+    }
 }

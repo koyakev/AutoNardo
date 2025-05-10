@@ -3,7 +3,7 @@
         <?= $this->session->flashdata('message'); ?>
     <?php endif; ?>
 
-    <a class="btn btn-dark my-2" href="<?= site_url('admin/cars_add') ?>">Add User</a>
+    <a class="btn btn-dark my-2" href="<?= site_url('admin/users_add') ?>">Add User</a>
 
     <div class="table-responsive">
         <table class="table table-striped">

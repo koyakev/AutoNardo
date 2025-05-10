@@ -65,7 +65,6 @@ class AdminController extends CI_Controller {
         $transmission = $this->input->post('transmission');
         $plate_number = $this->input->post('plate_number');
         $rate = $this->input->post('rate');
-        $condition = $this->input->post('condition');
 
         $id = strtoupper($brand[0]) . "-" . strtoupper(str_replace(" ", "_", $model)) . "-" . $transmission[0];
 
@@ -91,8 +90,7 @@ class AdminController extends CI_Controller {
             'model' => $model,
             'transmission' => $transmission,
             'plate_number' => $plate_number,
-            'rental_price_per_day' => $rate,
-            'condition_status' => $condition,
+            'rental_price_per_day' => $rate, 
             'is_available' => 1,
             'image' => $upload_data['file_name'],
             'created_at' => date('Y:m:d H:i:s')
