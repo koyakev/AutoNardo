@@ -1,32 +1,26 @@
 <div class="m-5">
 
-    <a class="btn btn-dark my-2" href="<?= site_url('admin/cars_add') ?>">Add Car</a>
+    <a class="btn btn-dark my-2" href="<?= site_url('admin/users_add') ?>">Add User</a>
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Type</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th >Transmission</th>
-                    <th>Plate Number</th>
-                    <th>Rate</th>
-                    <th>Available</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($cars as $car): ?>
+                <?php foreach($users as $user): ?>
                     <tr>
-                        <td><a href="<?= site_url('admin/car_view/') . $car['id'] ?>"><?= $car['id'] ?></a></td>
-                        <td><?= $car['car_type'] ?></td>
-                        <td><?= $car['make'] ?></td>
-                        <td><?= $car['model'] ?></td>
-                        <td><?= $car['transmission'] ?></td>
-                        <td><?= $car['plate_number'] ?></td>
-                        <td><?= $car['rental_price_per_day'] ?></td>
-                        <td><?= $car['is_available'] ?></td>
+                        <td><a href="<?= site_url('admin/user_view/') . $user['id'] ?>"><?= $user['id'] ?></a></td>
+                        <td><?= $user['full_name'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= $user['phone'] ?></td>
+                        <td><?= $user['address'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

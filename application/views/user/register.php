@@ -12,4 +12,4 @@
     <input type="date" name="drivers_license_expiry" placeholder="Driver's License Expiry" required>
     <button>Register</button>
 </form>
-<a href="#">No account yet?</a>
+<a href="<?= site_url('login') ?>">Already have an account?</a>

@@ -6,8 +6,6 @@
     endif;
 ?>
 
-
-
 <img src="<?= base_url('uploads/' . $car['image']) ?>">
 <?php if($this->session->flashdata('message')): ?>
         <div class="alert alert-danger">

@@ -6,15 +6,20 @@ class AdminController extends CI_Controller {
         parent::__construct();
         $this->load->model('User_model');
         $this->load->model('Car_model');
+        $this->load->model('Payment_model');
     }
 
     public function index() {
         if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
             $data['title'] = "Admin Dashboard";
-            $data['users'] = $this->User_model->get_users_count();
-            $data['cars'] = $this->Car_model->get_cars_count();
+            $data['users'] = $this->User_model->get_users()['count'];
+            $data['cars'] = $this->Car_model->get_cars()['count'];
+            $data['yearly'] = $this->Payment_model->get_yearly_sales();
+            $data['monthly'] = $this->Payment_model->get_monthly_sales();
+            $data['car_portions'] = $this->Payment_model->get_car_bookings();
 
             $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
             $this->load->view('admin/dashboard', $data);
             $this->load->view('admin/footer');
         } else {
@@ -36,7 +41,7 @@ class AdminController extends CI_Controller {
 
     public function cars_list() {
         $data['title'] = "Car List";
-        $data['cars'] = $this->Car_model->get_cars();
+        $data['cars'] = $this->Car_model->get_cars()['cars'];
 
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar');
@@ -60,7 +65,6 @@ class AdminController extends CI_Controller {
         $transmission = $this->input->post('transmission');
         $plate_number = $this->input->post('plate_number');
         $rate = $this->input->post('rate');
-        $condition = $this->input->post('condition');
 
         $id = strtoupper($brand[0]) . "-" . strtoupper(str_replace(" ", "_", $model)) . "-" . $transmission[0];
 
@@ -86,8 +90,7 @@ class AdminController extends CI_Controller {
             'model' => $model,
             'transmission' => $transmission,
             'plate_number' => $plate_number,
-            'rental_price_per_day' => $rate,
-            'condition_status' => $condition,
+            'rental_price_per_day' => $rate, 
             'is_available' => 1,
             'image' => $upload_data['file_name'],
             'created_at' => date('Y:m:d H:i:s')
@@ -98,6 +101,44 @@ class AdminController extends CI_Controller {
         redirect('admin/cars_list');
     }
 
+    public function car_update($id) {
+        $car = $this->Car_model->get_car($id);
+
+        $data = [
+            'plate_number' => $this->input->post('plate_number'),
+            'rental_price_per_day' => $this->input->post('rate'),
+            'condition_status' => $this->input->post('condition'),
+            'updated_at' => date('Y:m:d H:i:s')
+        ];
+
+        if (!empty($_FILES['photo']['name'])) {
+            unlink(FCPATH . 'uploads/' . $car['image']);
+
+            $config['upload_path'] = FCPATH . 'uploads/';
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            $config['file_name'] = $id;
+
+            $this->upload->initialize($config);
+
+            if($this->upload->do_upload('photo')) {
+                $upload_data = $this->upload->data();
+                echo $upload_data['full_path'];
+                $this->session->set_flashdata('message', 'Upload success');
+            } else {
+                $error = $this->upload->display_errors();
+                echo $error;
+            }
+
+            $car_update = $this->Car_model->update_car($id, $data);
+            $this->session->set_flashdata('message', $car_update);
+            redirect('/admin/car_view/' . $car['id']);
+        } else {
+            $car_update = $this->Car_model->update_car($id, $data);
+            $this->session->set_flashdata('message', $car_update);
+            redirect('/admin/car_view/' . $car['id']);
+        }
+    }
+
     public function car_view($id) {
         $data['title'] = $id;
         $data['car'] = $this->Car_model->get_car($id);
@@ -105,6 +146,47 @@ class AdminController extends CI_Controller {
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar');
         $this->load->view('admin/car_view', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function users_list() {
+        $data['title'] = 'User List';
+        $data['users'] = $this->User_model->get_users()['users'];
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
+        $this->load->view('admin/users_list', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function user_view($id) {
+        $data['title'] = $id;
+        $data['user'] = $this->User_model->get_user($id);
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
+        $this->load->view('admin/user_view', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function sales_view() {
+        $data['title'] = "Yearly Sales";
+        $data['yearly'] = $this->Payment_model->get_yearly_sales();
+        $data['monthly'] = $this->Payment_model->get_monthly_sales();
+        $data['car_portions'] = $this->Payment_model->get_car_bookings();
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
+        $this->load->view('admin/sales_view');
+        $this->load->view('admin/footer');
+    }
+
+    public function users_add() {
+        $data['title'] = "Create User";
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar');
+        $this->load->view('admin/users_add');
         $this->load->view('admin/footer');
     }
 }
