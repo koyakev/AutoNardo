@@ -24,7 +24,9 @@ class UserController extends CI_Controller {
 
     public function car_view($id) {
         $data['car'] = $this->Car_model->get_car($id);
-
+		$this->load->view('user/header', $data);
+		$this->load->view('user/nav', $data);
         $this->load->view('user/car_view', $data);
+		$this->load->view('user/footer', $data);
     }
 }
