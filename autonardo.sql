@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `transmission` varchar(255) NOT NULL,
   `plate_number` varchar(255) NOT NULL,
   `rental_price_per_day` decimal(10,2) NOT NULL,
-  `condition_status` varchar(255) NOT NULL,
   `is_available` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,

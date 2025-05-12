@@ -40,22 +40,30 @@ class AdminController extends CI_Controller {
     }
 
     public function cars_list() {
-        $data['title'] = "Car List";
-        $data['cars'] = $this->Car_model->get_cars()['cars'];
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = "Car List";
+            $data['cars'] = $this->Car_model->get_cars()['cars'];
 
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/cars_list', $data);
-        $this->load->view('admin/footer');
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/cars_list', $data);
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function cars_add() {
-        $data['title'] = "Add Car";
-        
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/cars_add');
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->sessionn->userdata('isAdmin') == 1) {
+            $data['title'] = "Add Car";
+            
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/cars_add');
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function cars_store() {
@@ -140,53 +148,73 @@ class AdminController extends CI_Controller {
     }
 
     public function car_view($id) {
-        $data['title'] = $id;
-        $data['car'] = $this->Car_model->get_car($id);
-        
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/car_view', $data);
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = $id;
+            $data['car'] = $this->Car_model->get_car($id);
+            
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/car_view', $data);
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function users_list() {
-        $data['title'] = 'User List';
-        $data['users'] = $this->User_model->get_users()['users'];
-
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/users_list', $data);
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = 'User List';
+            $data['users'] = $this->User_model->get_users()['users'];
+    
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/users_list', $data);
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function user_view($id) {
-        $data['title'] = $id;
-        $data['user'] = $this->User_model->get_user($id);
-
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/user_view', $data);
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = $id;
+            $data['user'] = $this->User_model->get_user($id);
+    
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/user_view', $data);
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function sales_view() {
-        $data['title'] = "Yearly Sales";
-        $data['yearly'] = $this->Payment_model->get_yearly_sales();
-        $data['monthly'] = $this->Payment_model->get_monthly_sales();
-        $data['car_portions'] = $this->Payment_model->get_car_bookings();
-
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/sales_view');
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = "Yearly Sales";
+            $data['yearly'] = $this->Payment_model->get_yearly_sales();
+            $data['monthly'] = $this->Payment_model->get_monthly_sales();
+            $data['car_portions'] = $this->Payment_model->get_car_bookings();
+    
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/sales_view');
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 
     public function users_add() {
-        $data['title'] = "Create User";
-
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar');
-        $this->load->view('admin/users_add');
-        $this->load->view('admin/footer');
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
+            $data['title'] = "Create User";
+    
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/users_add');
+            $this->load->view('admin/footer');
+        } else {
+            redirect('admin/login');
+        }
     }
 }
