@@ -27,14 +27,20 @@ class UserController extends CI_Controller
 		$this->load->view('user/register');
 	}
 
+	public function load_nav()
+	{
+		$data['user'] = $this->session->userdata('user');
+		$this->load->view('user/nav', $data);
+	}
+
 	public function car_view($id)
 	{
 		if ($this->session->userdata('user') && $this->session->userdata('isAdmin') !== 1) {
 			$car = $this->Car_model->get_car($id);
 			$data['title'] = "Autonardo | Booking | " . $car['make'] . " " . $car['model'];
-			$data['car'] = $this->Car_model->get_car($id);
+			$data['car'] = $car;
 			$this->load->view('user/header', $data);
-			$this->load->view('user/nav', $data);
+			$this->load_nav();
 			$this->load->view('user/car_view', $data);
 			$this->load->view('user/footer', $data);
 		} else {
