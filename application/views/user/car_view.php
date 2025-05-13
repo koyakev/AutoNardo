@@ -108,16 +108,59 @@ endif;
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
-		$('#start_date, #end_date').on('change', function() {
-			let start = new Date($('#start_date').val());
-			let end = new Date($('#end_date').val());
-			let days = (end - start) / (1000 * 60 * 60 * 24);
-			let rentalPricePerDay = <?= $car['rental_price_per_day'] ?>;
+		const carID = "<?= $car['id'] ?>";
+		const today = new Date();
+		const startDateInput = $('#start_date');
+		const endDateInput = $('#end_date');
 
-			if (isNaN(days) || days <= 0) {
-				$('#price').text(0);
-			} else {
-				$('#price').text(days * rentalPricePerDay);
+		// Disable past dates for the start date
+		startDateInput.attr('min', today.toISOString().split('T')[0]);
+	
+		function fetchBookedDates() {
+			$.ajax({
+				url: "<?= site_url('get_booked_dates') ?>",
+				type: 'GET',
+				data: { car_id: carID },
+				success: function(bookedDates) {
+					if (typeof bookedDates === 'string') {
+						bookedDates = JSON.parse(bookedDates);
+					}
+
+					bookedDates.forEach(date => {
+						let bookedDate = new Date(date);
+						let bookedDateString = bookedDate.toISOString().split('T')[0];
+						console.log('Booked Date:', bookedDateString);
+
+						// Disable the booked date for start date input
+						if (startDateInput.val() === '' || bookedDate >= new Date(startDateInput.val())) {
+							startDateInput.attr('min', bookedDateString);
+						}
+
+						// Disable the booked date for end date input
+						endDateInput.attr('min', bookedDateString);
+					});
+				},
+				fail: function(jqXHR, textStatus, errorThrown) {
+					console.error('Ajax error:', jqXHR, textStatus, errorThrown);
+				}
+			});
+		}
+
+		// Fetch booked dates on page load
+		fetchBookedDates();
+
+		startDateInput.on('change', function() {
+			let start = new Date(startDateInput.val());
+			// Set the minimum date for the end date input after the start date is selected
+			endDateInput.attr('min', start.toISOString().split('T')[0]);
+		});
+
+		endDateInput.on('change', function() {
+			let start = new Date(startDateInput.val());
+			let end = new Date(endDateInput.val());
+			
+			if (end < start) {
+				endDateInput.val('');
 			}
 		});
 	});

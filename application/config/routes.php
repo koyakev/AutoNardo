@@ -60,6 +60,8 @@ $route['rental-history'] = 'UserController/rental_history';
 
 $route['book'] = 'BookingController/book_rental';
 
+$route['get_booked_dates'] = 'UserController/get_booked_dates';
+
 $route['paymongo/webhook'] = 'PaymentController/webhook';
 
 

@@ -25,4 +25,14 @@ class Booking_model extends CI_Model
 			->get('bookings')
 			->result_array();
 	}
+
+	public function get_bookings_by_car($car_id)
+	{
+		$this->db->select('*');
+		$this->db->from('bookings');
+		$this->db->where('car_id', $car_id);
+		$query = $this->db->get();
+
+		return $query->result_array(); // Return the result as an array
+	}
 }

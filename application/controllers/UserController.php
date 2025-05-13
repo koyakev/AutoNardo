@@ -95,4 +95,29 @@ class UserController extends CI_Controller
 			redirect('/login');
 		}
 	}
+
+	public function get_booked_dates()
+	{
+		$car_id = $this->input->get('car_id');
+		$bookings = $this->Booking_model->get_bookings_by_car($car_id);
+
+		$booked_dates = [];
+		foreach ($bookings as $booking) {
+			$start_date = $booking['start_date'];
+			$end_date = $booking['end_date'];
+
+			// Create a DatePeriod to get all dates between start and end date
+			$period = new DatePeriod(
+				new DateTime($start_date),
+				new DateInterval('P1D'),
+				new DateTime($end_date . ' +1 day')
+			);
+
+			foreach ($period as $date) {
+				$booked_dates[] = $date->format('Y-m-d');
+			}
+		}
+
+		echo json_encode($booked_dates);
+	}
 }
