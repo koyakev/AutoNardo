@@ -30,26 +30,28 @@ class PaymentController extends CI_Controller
 			return;
 		}
 
-		$eventType = $payload['data']['type'];
+		$eventType = $payload['data']['attributes']['type'];
 
-		if ($eventType === 'payment_intent') {
-			$transactionId = $payload['data']['id'];
-			$status = $payload['data']['attributes']['status'];
+		if ($eventType) {
+			$transactionId = $payload['data']['attributes']['data']['attributes']['payment_intent_id'];
+			$status = $payload['data']['attributes']['data']['attributes']['status'];
+			$payment_method= $payload['data']['attributes']['data']['attributes']['source']['type'];
 
-			// Optional: log webhook
+			
 			log_message('debug', "Received payment_intent webhook: $transactionId - Status: $status");
 
 			// Update payment record
 			$updated = $this->Payment_model->update_status_by_reference($transactionId, [
 				'transaction_status' => $status,
+				'payment_method' => $payment_method,
 				'updated_at' => date('Y-m-d H:i:s')
 			]);
 
 			if ($updated) {
 				// Optionally update the booking status if payment is successful
-				if ($status === 'succeeded') {
-					// Call the new function to confirm booking
+				if ($status) {
 					$this->confirm_booking_by_transaction($transactionId);
+					
 				}
 
 				echo json_encode(['status' => 'received']);

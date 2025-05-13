@@ -70,7 +70,7 @@ class BookingController extends CI_Controller
 			'data' => [
 				'attributes' => [
 					'payment_method_types' => $paymentMethods,
-					'cancel_url' => site_url('/user/car_view/' . $car_id),
+					'cancel_url' => site_url('/car_view/' . $car_id),
 					'success_url' => site_url('/rental-history'),
 					'return_url' => base_url(),
 					'billing_address_collection' => 'required',
