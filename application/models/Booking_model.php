@@ -19,10 +19,20 @@ class Booking_model extends CI_Model
 			->update('bookings', ['status' => $status, 'updated_at' => date('Y-m-d H:i:s')]);
 	}
 
+	public function get_user_bookings($user_id)
+	{
+		return $this->db->where('user_id', $user_id)
+			->get('bookings')
+			->result_array();
+	}
 
-	// public function get_bookings() {
-	//     $data = $this->db->select('car_id, DATE_FORMAT(created_at)')->get('bookings')->result_array();
+	public function get_bookings_by_car($car_id)
+	{
+		$this->db->select('*');
+		$this->db->from('bookings');
+		$this->db->where('car_id', $car_id);
+		$query = $this->db->get();
 
-	//     return $data;
-	// }
+		return $query->result_array(); // Return the result as an array
+	}
 }
