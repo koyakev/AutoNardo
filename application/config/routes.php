@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'UserController/register';
 $route['login'] = 'UserController/login';
 $route['car_view/(:any)'] = 'UserController/car_view/$1';
+$route['rental-history'] = 'UserController/rental_history';
 
 $route['book'] = 'BookingController/book_rental';
 
