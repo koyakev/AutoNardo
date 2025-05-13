@@ -18,14 +18,14 @@
                         </li>
                         <?php if ($user): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= site_url('user/logout') ?>">Logout</a>
+                                <a class="nav-link" href="<?= site_url('auth/logout') ?>">Logout</a>
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= site_url('user/login') ?>">Login</a>
+                                <a class="nav-link" href="<?= site_url('/login') ?>">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= site_url('user/register') ?>">Register</a>
+                                <a class="nav-link" href="<?= site_url('/register') ?>">Register</a>
                             </li>
                         <?php endif; ?>
                     </ul>

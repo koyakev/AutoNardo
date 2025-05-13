@@ -2,7 +2,7 @@
 $user = $this->session->userdata('user');
 if (!$user):
 	// If not logged in, redirect
-	redirect('/login');
+	redirect(site_url('/login'));
 endif;
 ?>
 

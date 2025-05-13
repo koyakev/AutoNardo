@@ -54,7 +54,7 @@ class AdminController extends CI_Controller {
     }
 
     public function cars_add() {
-        if($this->session->userdata('user') && $this->sessionn->userdata('isAdmin') == 1) {
+        if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
             $data['title'] = "Add Car";
             
             $this->load->view('admin/header', $data);
