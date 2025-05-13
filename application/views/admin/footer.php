@@ -1,5 +1,31 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script>
+            function view_data(data) {
+                let id = data;
+                
+                $.ajax({
+                    url: "<?= site_url('admin/get_transaction/') ?>",
+                    method: "POST",
+                    data: { id: id },
+                    success: function(data) {
+                        let transaction_data = JSON.parse(data);
+                        console.log(transaction_data);
+                        $('#modalReference').val(transaction_data['transaction_reference']);
+                        $('#modalUser').val(transaction_data['user_id']);
+                        $('#modalAmount').val(transaction_data['amount']);
+                        $('#modalMethod').val(transaction_data['payment_method']);
+                        $('#modalStatus').val(transaction_data['status']);
+                        $('#modalCar').val(transaction_data['car_id']);
+                        $('#modalTransactionDate').val(transaction_data['transaction_date']);
+                        $('#modalDurationDate').val(transaction_data['start_date'] + " - " + transaction_data['end_date']);
+                    },
+                    error: function(error) {
+                        console.error("Error: ", error);
+                    }
+                })
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
@@ -15,16 +41,16 @@
 
                 sales_json.map(sale => {
                     sales.push(sale["SUM(AMOUNT)"]);
-                })
+                });
 
                 sales_json_monthly.map(sale => {
                     sales_monthly.push(sale["SUM(amount)"]);
-                })
+                });
 
                 car_portions.map(car => {
                     car_id.push(car.car_id);
                     car_stats.push(car.count);
-                })
+                });
 
                 let backgroundColors = generateColors(car_portions.length);
                 
@@ -63,7 +89,7 @@
                             }
                         }
                     }
-                })
+                });
 
                 const sales_chart_yearly = new Chart(salesChartYearly, {
                     type: 'line',
@@ -77,7 +103,7 @@
                                 tension: 0.3,
                             }, {
                                 label: 'Target Sales',
-                                data: [500000, 500000, 500000],
+                                data: [100000, 100000, 100000],
                                 backgroundColor: '#F0FFFF',
                                 fill: false,
                                 tension: 0.3
@@ -88,11 +114,12 @@
                         responsive: true,
                         scales: {
                             y: {
-                                beginAtZero: true,
+                                // beginAtZero: true,
                                 ticks: {
                                     callback: function(value) {
                                         return '₱' + value;
-                                    }
+                                    },
+                                    max: 200000,
                                 }
                             }
                         },
@@ -103,7 +130,7 @@
                             }
                         }
                     }
-                })
+                });
 
                 const sales_chart_monthly = new Chart(salesChartMonthly, {
                     type: 'bar',
@@ -136,6 +163,10 @@
                             }
                         }
                     }
+                });
+
+                $(".view-btn").on('click', function() {
+                    console.log($(this).data('id'));
                 })
             });
 
@@ -149,6 +180,7 @@
                 return colors;
             }
 
+            
         </script>
     </body>
 </html>

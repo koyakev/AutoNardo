@@ -19,6 +19,16 @@ class Payment_model extends CI_Model
 		return $this->db->get('payments')->result_array();
 	}
 
+    public function get_booking_payments()
+    {
+        return $this->db->select('bookings.*, payments.*')->from('bookings')->join('payments', 'bookings.id = payments.booking_id', 'left')->get()->result_array();
+    }
+
+    public function get_booking_payment_by_id($id)
+    {
+        return $this->db->select('bookings.*, payments.*')->from('bookings')->where('bookings.id', $id)->join('payments', 'bookings.id = payments.booking_id', 'left')->get()->row();
+    }
+
 	// Get payment by ID
 	public function get_payment($id)
 	{

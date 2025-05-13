@@ -47,37 +47,7 @@
     </div>
 </div>
 
-<div id="edit_data" class="modal fade">
-    <div class="modal-dialog">
-        <?= form_open_multipart("admin/car_view/{$car['id']}/edit"); ?>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><?= $car['id'] ?></h5>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Plate Number:</label>
-                        <input type="text" class="form-control" name="plate_number" value="<?= $car['plate_number'] ?>">
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Rate:</label>
-                        <input type="number" class="form-control" step="0.01" name="rate" value="<?= $car['rental_price_per_day'] ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Photos:</label>
-                        <input type="file" class="form-control" name="photo">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-dark">Save changes</button>
-                </div>
-            </div>
-        <?= form_close(); ?>
-    </div>
-</div>
 
 <div id="confirm_delete" class="modal fade">
     <div class="modal-dialog">
