@@ -192,10 +192,8 @@ class AdminController extends CI_Controller {
     public function sales_view() {
         if($this->session->userdata('user') && $this->session->userdata('isAdmin') == 1) {
             $data['title'] = "Yearly Sales";
-            $data['yearly'] = $this->Payment_model->get_yearly_sales();
-            $data['monthly'] = $this->Payment_model->get_monthly_sales();
-            $data['car_portions'] = $this->Payment_model->get_car_bookings();
-    
+            $data['sales'] = $this->Payment_model->get_booking_payments();
+
             $this->load->view('admin/header', $data);
             $this->load->view('admin/navbar');
             $this->load->view('admin/sales_view');
@@ -203,6 +201,13 @@ class AdminController extends CI_Controller {
         } else {
             redirect('admin/login');
         }
+    }
+
+    public function get_transaction() {
+        $id = $this->input->post('id');
+        $transaction = $this->Payment_model->get_booking_payment_by_id($id);
+
+        echo json_encode($transaction);
     }
 
     public function users_add() {

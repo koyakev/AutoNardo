@@ -85,3 +85,4 @@ $route['admin/users_add'] = 'AdminController/users_add';
 $route['admin/store_user'] = 'AuthController/store';
 
 $route['admin/sales_view'] = 'AdminController/sales_view';
+$route['admin/get_transaction'] = 'AdminController/get_transaction';
