@@ -55,10 +55,6 @@ endif;
 								<td>₱<?= $car['rental_price_per_day'] ?> / day</td>
 							</tr>
 							<tr>
-								<th scope="row" class="bg-light">Condition</th>
-								<td><?= $car['condition_status'] ?></td>
-							</tr>
-							<tr>
 								<th scope="row" class="bg-light">Available</th>
 								<td><?= $car['is_available'] ? 'Yes' : 'No' ?></td>
 							</tr>

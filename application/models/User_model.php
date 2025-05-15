@@ -40,4 +40,8 @@ class User_model extends CI_Model {
     public function get_last_user_id($is_admin) {
         return $this->db->where('is_admin', $is_admin)->order_by('created_at', 'desc')->limit(1)->get('users')->row();
     }
+
+    public function update_user($id, $data) {
+        return $this->db->where('id', $id)->update('users', $data);
+    }
 }
