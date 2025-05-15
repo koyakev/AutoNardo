@@ -120,4 +120,90 @@ class UserController extends CI_Controller
 
 		echo json_encode($booked_dates);
 	}
+
+	public function edit_user()
+	{
+		if ($this->session->userdata('user')) {
+			$user = $this->session->userdata('user');
+			$user_id = $user->id;
+
+			
+			if ($this->input->post()) {
+				
+				$data = [
+					'full_name' => $this->input->post('full_name'),
+					'email' => $this->input->post('email'),
+					'phone' => $this->input->post('phone'),
+					'address' => $this->input->post('address'),
+					'drivers_license_number' => $this->input->post('drivers_license_number'),
+					'drivers_license_expiry' => $this->input->post('drivers_license_expiry'),
+				];
+				
+				$this->User_model->update_user($user_id, $data);
+				
+				$this->session->set_flashdata('success', 'User data updated successfully.');
+
+				
+				redirect('/profile'); 
+			} else {
+				// Load the current user data to pre-fill the form
+				$data['user'] = $this->User_model->get_user($user_id);
+				$data['title'] = "Edit Profile";
+				$this->load->view('user/header', $data);
+				$this->load->view('user/edit_profile', $data); // Create this view for the form
+				$this->load->view('user/footer', $data);
+				
+			}
+		} else {
+			redirect('/login');
+		}
+	}
+
+	public function profile()
+	{
+		if ($this->session->userdata('user')) {
+			$user = $this->session->userdata('user');
+			$data['user'] = $this->User_model->get_user($user->id);
+			$data['title'] = "User Profile";
+			$this->load->view('user/header', $data);
+			$this->load_nav();
+			$this->load->view('user/profile_view', $data);
+			$this->load->view('user/footer', $data);
+		} else {
+			redirect('/login');
+		}
+	}
+
+	public function change_password()
+	{
+		if ($this->session->userdata('user')) {
+			$user = $this->session->userdata('user');
+			$user_id = $user->id;
+
+			if ($this->input->post()) {
+				$current_password = $this->input->post('current_password');
+				$new_password = $this->input->post('new_password');
+				$confirm_password = $this->input->post('confirm_password');
+
+				// Validate current password
+				$user_data = $this->User_model->get_user($user_id);
+				if (password_verify($current_password, $user_data['password'])) {
+					if ($new_password === $confirm_password) {
+						// Update password
+						$hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+						$this->User_model->update_user($user_id, ['password' => $hashed_password]);
+						$this->session->set_flashdata('success', 'Password changed successfully.');
+					} else {
+						$this->session->set_flashdata('error', 'New passwords do not match.');
+					}
+				} else {
+					$this->session->set_flashdata('error', 'Current password is incorrect.');
+				}
+
+				redirect('/profile');
+			}
+		} else {
+			redirect('/login');
+		}
+	}
 }
