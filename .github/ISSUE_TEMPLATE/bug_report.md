@@ -6,26 +6,21 @@ labels: bug
 assignees: ''
 ---
 
-**Module Name:**  
-> Module Name
-
-**Test Case ID:**  
-> Test case ID
-
-**Description:**  
+**Description**
 > Description
 
-**Steps to reproduce:**  
-1. Go to Dashboard  
-2. Navigate at the User widget  
-3. Select My Cases  
-4. Click the checkbox of the desired entry  
+**Module Name & Test case ID**
+> Module Name
 
-**Test Procedure:** Manual Testing
+**Test Environment**
+> Test Procedure: Manual
+> System: Windows 11
+> Browser: Brave
 
-**Test Environment**  
-> Test Procedure: Manual  
-> System: Windows 11  
-> Browser: Google Chrome
+**Steps to Reproduce**
+1. Go to Dashboard
+2. Navigate at the User widget
+3. Select My Cases
+4. Click the checkbox of the desired entry
 
-**Screenshots/Recordings:**
+**Screenshot/s or Recordings**
