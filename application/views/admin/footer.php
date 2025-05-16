@@ -161,7 +161,7 @@
                         $('#modalUser').val(transaction_data['user_id']);
                         $('#modalAmount').val(transaction_data['amount']);
                         $('#modalMethod').val(transaction_data['payment_method']);
-                        $('#modalStatus').val(transaction_data['status']);
+                        $('#modalStatus').val(transaction_data['status'].charAt(0).toUpperCase() + transaction_data['status'].slice(1));
                         $('#modalCar').val(transaction_data['car_id']);
                         $('#modalTransactionDate').val(transaction_data['transaction_date']);
                         $('#modalDurationDate').val(transaction_data['start_date'] + " - " + transaction_data['end_date']);
