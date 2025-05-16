@@ -13,7 +13,6 @@
                     <th >Transmission</th>
                     <th>Plate Number</th>
                     <th>Rate</th>
-                    <th>Available</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +25,6 @@
                         <td><?= $car['transmission'] ?></td>
                         <td><?= $car['plate_number'] ?></td>
                         <td><?= $car['rental_price_per_day'] ?></td>
-                        <td><?= $car['is_available'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

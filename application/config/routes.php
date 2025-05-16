@@ -86,6 +86,7 @@ $route['admin/users_list'] = 'AdminController/users_list';
 $route['admin/user_view/(:any)'] = 'AdminController/user_view/$1';
 $route['admin/users_add'] = 'AdminController/users_add';
 $route['admin/store_user'] = 'AuthController/store';
+$route['admin/set_active/(:any)'] = 'AdminController/set_active/$1';
 
 $route['admin/sales_view'] = 'AdminController/sales_view';
 $route['admin/get_transaction'] = 'AdminController/get_transaction';
