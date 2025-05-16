@@ -1,3 +1,11 @@
+---
+name: Bug Report
+about: Use this template to report a bug
+title: "QA -  "
+labels: bug
+assignees: ''
+---
+
 **Module Name:**  
 > Module Name
 
