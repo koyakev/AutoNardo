@@ -9,8 +9,7 @@
                     <th>ID</th>
                     <th>Full Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
+                    <th>Active</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,8 +18,7 @@
                         <td><a href="<?= site_url('admin/user_view/') . $user['id'] ?>"><?= $user['id'] ?></a></td>
                         <td><?= $user['full_name'] ?></td>
                         <td><?= $user['email'] ?></td>
-                        <td><?= $user['phone'] ?></td>
-                        <td><?= $user['address'] ?></td>
+                        <td><span class="<?= ($user['is_active'] == 1 ? 'p-1 bg-primary rounded text-white' : 'p-1 bg-secondary rounded text-white') ?>"><?= ($user['is_active'] == 1 ? 'Active' : 'Inactive') ?></span></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

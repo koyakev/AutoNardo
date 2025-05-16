@@ -47,7 +47,36 @@
     </div>
 </div>
 
+<div id="edit_data" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?= $car['id'] ?></h5>
+            </div>
+            <?= form_open_multipart('admin/car_view/' . $car['id'] . '/edit'); ?>
+                <div class="modal-body">
+                    <input type="hidden" name="brand" value="<?= $car['make'] ?>">
+                    <input type="hidden" name="model" value="<?= $car['model'] ?>">
+                    <input type="hidden" name="transmission" value="<?= $car['transmission'] ?>">
 
+                    <label class="form-label">Plate Number:</label>
+                    <input type="text" name="plate_number" class="form-control mb-3" value="<?= $car['plate_number'] ?>" required>
+
+                    <label class="form-label">Rate:</label>
+                    <input type="number" step="0.01" name="rate" class="form-control mb-3" value="<?= $car['rental_price_per_day'] ?>" required>
+
+                    <label class="form-label">Photos:</label>
+                    <input type="file" name="photo" class="form-control mb-3">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-dark">Update</button>
+                </div>
+            <?= form_close(); ?>
+        </div>
+    </div>
+</div>
 
 <div id="confirm_delete" class="modal fade">
     <div class="modal-dialog">

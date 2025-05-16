@@ -48,4 +48,20 @@ class User_model extends CI_Model {
     public function get_users_count() {
         return $this->db->get('users')->num_rows();
     }
+
+    public function set_active($id) {
+        $data = $this->db->where('id', $id)->get('users')->row_array();
+        
+        if($data['is_active'] == 1) {
+            $this->db->where('id', $id)->update('users', ['is_active' => 0]);
+            return [
+                'message' => 'User ' . $id . ' is now inactive!'
+            ];
+        } else {
+            $this->db->where('id', $id)->update('users', ['is_active' => 1]);
+            return [
+                'message' => 'User ' . $id . ' is now active again!'
+            ];
+        }
+    }
 }

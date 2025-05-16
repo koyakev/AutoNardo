@@ -1,6 +1,7 @@
 <div class="container p-5 m-auto my-5 w-50 bg-white rounded shadow-sm">
-
-    <h4>Create New User</h4>
+    <div class="d-flex align-items-center mb-3 fs-4">
+        <a href="<?= site_url('admin/users_list') ?>" class="btn btn-dark"><i class="fa fa-arrow-left" aria-hidden="true"></i></a><span class="p-1 px-3">Create New User</span>
+    </div>
     <form method="POST" action="<?= site_url('admin/store_user') ?>">
         <div class="form-group mb-3">
             <label class="form-label">Full Name:</label>
@@ -9,7 +10,7 @@
 
         <div class="form-group mb-3">
             <label class="form-label">Email:</label>
-            <input type="text" name="email" class="form-control" required>
+            <input type="email" name="email" class="form-control" required>
         </div>
 
         <div class="form-group mb-3">
@@ -19,7 +20,10 @@
 
         <div class="form-group mb-3">
             <label class="form-label">Phone:</label>
-            <input type="text" name="phone" class="form-control" required>
+            <div class="input-group">
+                <span class="input-group-text">09</span>
+                <input type="text" name="phone" class="form-control" minlength="9" maxlength="9" pattern="\d*" inputmode="numeric" required>
+            </div>
         </div>
 
         <div class="form-group mb-3">

@@ -18,6 +18,7 @@ class AdminController extends CI_Controller {
             $data['yearly'] = $this->Payment_model->get_yearly_sales();
             $data['monthly'] = $this->Payment_model->get_monthly_sales();
             $data['car_portions'] = $this->Payment_model->get_car_bookings();
+            $data['ongoing_bookings'] = $this->Booking_model->get_ongoing_bookings();
             $data['upcoming_bookings'] = $this->Booking_model->get_upcoming_bookings();
             $data['available_cars'] = $this->Car_model->get_available_cars();
             $data['user_count'] = $this->User_model->get_users_count();
@@ -78,7 +79,7 @@ class AdminController extends CI_Controller {
         $plate_number = $this->input->post('plate_number');
         $rate = $this->input->post('rate');
 
-        $id = strtoupper($brand[0]) . "-" . strtoupper(str_replace(" ", "_", $model)) . "-" . $transmission[0];
+        $id = strtoupper($brand[0]) . "-" . strtoupper(str_replace(" ", "_", $model)) . "-" . $transmission[0] . "-" . $plate_number;
 
         $config['upload_path'] = FCPATH . 'uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png';
@@ -116,15 +117,11 @@ class AdminController extends CI_Controller {
     public function car_update($id) {
         $car = $this->Car_model->get_car($id);
 
-        $data = [
-            'plate_number' => $this->input->post('plate_number'),
-            'rental_price_per_day' => $this->input->post('rate'),
-            'condition_status' => $this->input->post('condition'),
-            'updated_at' => date('Y:m:d H:i:s')
-        ];
-
         if (!empty($_FILES['photo']['name'])) {
-            unlink(FCPATH . 'uploads/' . $car['image']);
+            if(FCPATH . 'uploads/' . $car['image'])
+                unlink(FCPATH . 'uploads/' . $car['image']);
+
+            $new_id = strtoupper($this->input->post('brand')[0]) . "-" . strtoupper(str_replace(" ", "_", $this->input->post('model'))) . "-" . $this->input->post('transmission')[0] . '-' . $this->input->post('plate_number');
 
             $config['upload_path'] = FCPATH . 'uploads/';
             $config['allowed_types'] = 'jpg|jpeg|png';
@@ -141,13 +138,21 @@ class AdminController extends CI_Controller {
                 echo $error;
             }
 
+            $data = [
+                'id' => $new_id,
+                'plate_number' => $this->input->post('plate_number'),
+                'rental_price_per_day' => $this->input->post('rate'),
+                'updated_at' => date('Y:m:d H:i:s'),
+                'image' => $upload_data['file_name']
+            ];
+
             $car_update = $this->Car_model->update_car($id, $data);
             $this->session->set_flashdata('message', $car_update);
-            redirect('/admin/car_view/' . $car['id']);
+            redirect('/admin/car_view/' . $id);
         } else {
             $car_update = $this->Car_model->update_car($id, $data);
             $this->session->set_flashdata('message', $car_update);
-            redirect('/admin/car_view/' . $car['id']);
+            redirect('/admin/car_view/' . $id);
         }
     }
 
@@ -224,6 +229,18 @@ class AdminController extends CI_Controller {
             $this->load->view('admin/footer');
         } else {
             redirect('admin/login');
+        }
+    }
+
+    public function set_active($id) {
+        $user = $this->User_model->set_active($id);
+
+        if($user) {
+            $this->session->set_flashdata('message', $user['message']);
+            redirect('admin/users_list');
+        } else {
+            $this->session->set_flashdata('message', 'Error!');
+            redirect('admin/users_list');
         }
     }
 }

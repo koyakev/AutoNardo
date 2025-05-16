@@ -41,7 +41,7 @@ class AuthController extends CI_Controller {
         $full_name = $this->input->post('full_name');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        $phone = $this->input->post('phone');
+        $phone = '09' . $this->input->post('phone');
         $address = $this->input->post('address');
         $drivers_license_number = $this->input->post('drivers_license_number');
         $drivers_license_expiry = $this->input->post('drivers_license_expiry');
@@ -85,7 +85,7 @@ class AuthController extends CI_Controller {
                 } break;
 
                 case 1: {
-                    redirect('/admin');
+                    redirect('/admin/users_list');
                 }
             }
         } else {
@@ -97,10 +97,11 @@ class AuthController extends CI_Controller {
                 } break;
 
                 case 1: {
-                    redirect('/admin');
+                    redirect('/admin/users_list');
                 }
             }
         }
+
     }
 
     public function generate_id($admin) {

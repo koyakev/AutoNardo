@@ -15,7 +15,6 @@
                                 <th>Transaction Date</th>
                                 <th>Duration Date</th>
                                 <th>Amount</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +25,6 @@
                                         <td><?= $sale['transaction_date'] ?></td>
                                         <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
                                         <td><?= $sale['amount'] ?></td>
-                                        <td><?= $sale['status'] ?></td>
                                     </tr>
                                 <?php endif; ?>
                             <?php endforeach; ?>
