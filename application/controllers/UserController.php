@@ -31,12 +31,12 @@ class UserController extends CI_Controller
 
 	public function login()
 	{
-		$this->load->view('user/login');
+		$this->session->userdata('user') ? redirect('/') : $this->load->view('user/login');
 	}
 
 	public function register()
 	{
-		$this->load->view('user/register');
+		$this->session->userdata('user') ? redirect('/') : $this->load->view('user/register');
 	}
 
 	public function car_view($id)
@@ -64,9 +64,9 @@ class UserController extends CI_Controller
 			// Get user bookings
 			$data['bookings'] = $this->Booking_model->get_user_bookings($user_id);
 
-			
+
 			$bookings_with_totals = [];
-			
+
 			foreach ($data['bookings'] as $booking) {
 				$payments = $this->Payment_model->get_payments_by_booking($booking['id']);
 				$total = 0;
@@ -127,9 +127,9 @@ class UserController extends CI_Controller
 			$user = $this->session->userdata('user');
 			$user_id = $user->id;
 
-			
+
 			if ($this->input->post()) {
-				
+
 				$data = [
 					'full_name' => $this->input->post('full_name'),
 					'email' => $this->input->post('email'),
@@ -138,13 +138,13 @@ class UserController extends CI_Controller
 					'drivers_license_number' => $this->input->post('drivers_license_number'),
 					'drivers_license_expiry' => $this->input->post('drivers_license_expiry'),
 				];
-				
+
 				$this->User_model->update_user($user_id, $data);
-				
+
 				$this->session->set_flashdata('success', 'User data updated successfully.');
 
-				
-				redirect('/profile'); 
+
+				redirect('/profile');
 			} else {
 				// Load the current user data to pre-fill the form
 				$data['user'] = $this->User_model->get_user($user_id);
@@ -152,7 +152,6 @@ class UserController extends CI_Controller
 				$this->load->view('user/header', $data);
 				$this->load->view('user/edit_profile', $data); // Create this view for the form
 				$this->load->view('user/footer', $data);
-				
 			}
 		} else {
 			redirect('/login');
