@@ -7,6 +7,7 @@ class AdminController extends CI_Controller {
         $this->load->model('User_model');
         $this->load->model('Car_model');
         $this->load->model('Payment_model');
+        $this->load->model('Booking_model');
     }
 
     public function index() {
@@ -17,6 +18,9 @@ class AdminController extends CI_Controller {
             $data['yearly'] = $this->Payment_model->get_yearly_sales();
             $data['monthly'] = $this->Payment_model->get_monthly_sales();
             $data['car_portions'] = $this->Payment_model->get_car_bookings();
+            $data['upcoming_bookings'] = $this->Booking_model->get_upcoming_bookings();
+            $data['available_cars'] = $this->Car_model->get_available_cars();
+            $data['user_count'] = $this->User_model->get_users_count();
 
             $this->load->view('admin/header', $data);
             $this->load->view('admin/navbar');
