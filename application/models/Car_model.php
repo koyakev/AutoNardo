@@ -38,4 +38,8 @@ class Car_model extends CI_Model {
             return 'Car Edit Failed!';
         }
     }
+
+    public function get_available_cars() {
+        return $this->db->where('is_available', 1)->from('cars')->get()->num_rows();
+    }
 }

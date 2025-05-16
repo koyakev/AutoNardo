@@ -24,12 +24,14 @@
                         console.error("Error: ", error);
                     }
                 })
+                
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             $(document).ready(function() {
+                <?php if($title == 'Admin Dashboard'): ?>
                 let years = <?= json_encode($yearly['years']); ?>;
                 let sales_json = <?= json_encode($yearly['sales']); ?>;
                 let sales = [];
@@ -164,9 +166,20 @@
                         }
                     }
                 });
+                <?php endif; ?>
 
                 $(".view-btn").on('click', function() {
                     console.log($(this).data('id'));
+                })
+
+                $("#filterSales").on('click', function() {
+                    $("input[type='checkbox']:checked").each(function() {
+                        console.log($(this).val());
+                    })
+
+                    $.ajax({
+                        
+                    })
                 })
             });
 

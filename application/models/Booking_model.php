@@ -35,4 +35,9 @@ class Booking_model extends CI_Model
 
 		return $query->result_array(); // Return the result as an array
 	}
+
+	public function get_upcoming_bookings()
+	{
+		return $this->db->where('start_date <=', date('Y-m-d'))->where('end_date >=', date('Y-m-d'))->get('bookings')->result_array();
+	}
 }
