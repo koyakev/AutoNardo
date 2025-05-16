@@ -10,9 +10,7 @@
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url() ?>">Home</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Rentals</a>
-					</li>
+					
 					<li class="nav-item">
 						<a class="nav-link" href="<?= site_url('/rental-history') ?>">Rental history</a>
 					</li>
