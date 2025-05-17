@@ -102,10 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           <div class="alert alert-danger"><?php echo $loginError; ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="">
+        <form method="POST" action="<?= site_url('auth/verify') ?>">
           <div class="mb-3">
-            <label for="username" class="form-label">Email</label>
-            <input type="text" name="username" class="form-control" id="username" value="<?php echo htmlspecialchars($username); ?>" required />
+            <label for="email" class="form-label">Email</label>
+            <input type="text" name="email" class="form-control" id="email" value="<?php echo htmlspecialchars($username); ?>" required />
           </div>
           <div class="mb-4">
             <label for="password" class="form-label">Password</label>

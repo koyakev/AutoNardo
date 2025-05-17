@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/autonardo/';
+$config['base_url'] = 'https://e1b8-27-126-152-3.ngrok-free.app/autonardo/';
 
 /*
 |--------------------------------------------------------------------------

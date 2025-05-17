@@ -63,21 +63,26 @@ class UserController extends CI_Controller
 
 			// Get user bookings
 			$data['bookings'] = $this->Booking_model->get_user_bookings($user_id);
+			
 
 			
 			$bookings_with_totals = [];
 			
 			foreach ($data['bookings'] as $booking) {
 				$payments = $this->Payment_model->get_payments_by_booking($booking['id']);
+				$checkout_urls = $this->Payment_model->get_payments_by_booking($booking['id']);
 				$total = 0;
+				$checkout_url = "";
 
 				// Sum up the total payments for the booking
 				foreach ($payments as $payment) {
 					$total += $payment['amount'];
+					$checkout_url = $payment ['checkout_url'];
 				}
 
 				// Add the total to the booking data
 				$booking['total'] = $total;
+				$booking['checkout_url'] = $checkout_url;
 				$bookings_with_totals[] = $booking;
 			}
 

@@ -3,95 +3,60 @@
     <input type="checkbox" value="cancelled" id="cancelleds" class="form-check-input">Cancelled<br>
     <input type="checkbox" value="confirmed" id="confirmeds" class="form-check-input">Confirmed<br>
     <button type="button" id="filterSales" class="btn btn-warning">Filter</button> -->
-    <div class="row">
-        <div class="col">
-            <div class="bg-white p-4 m-2 shadow-sm rounded mx-0">
-                <h4>Pending</h4>
-                <div class="table-responsive" style="max-height: 310px;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Transaction Reference</th>
-                                <th>Transaction Date</th>
-                                <th>Duration Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($sales as $sale): ?>
-                                <?php if($sale['status'] == 'pending'): ?>
-                                    <tr>
-                                        <td><button type="button" class="btn btn-warning" onclick="view_data(<?= $sale['id'] ?>)" data-bs-toggle="modal" data-bs-target="#view_data_modal"><?= $sale['transaction_reference'] ?></button></td>
-                                        <td><?= $sale['transaction_date'] ?></td>
-                                        <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
-                                        <td><?= $sale['amount'] ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="bg-white shadow-sm rounded p-4 m-2 mx-0">
-                <h5>Confirmed</h5>
-                <div class="table-responsive" style="max-height: 310px;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Transaction Reference</th>
-                                <th>Transaction Date</th>
-                                <th>Duration Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($sales as $sale): ?>
-                                <?php if($sale['status'] == 'confirmed'): ?>
-                                    <tr>
-                                        <td><button type="button" class="btn btn-warning" onclick="view_data(<?= $sale['id'] ?>)" data-bs-toggle="modal" data-bs-target="#view_data_modal"><?= $sale['transaction_reference'] ?></button></td>
-                                        <td><?= $sale['transaction_date'] ?></td>
-                                        <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
-                                        <td><?= $sale['amount'] ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="bg-white p-4 m-2 shadow-sm rounded mx-0">
+        <button class="btn btn-dark" type="button" id="btn_pending">Pending</button>
+        <button class="btn btn-outline-dark" type="button" id="btn_confirmed">Confirmed</button>
+        <div id="pending" class="m-2 mt-4">
+            <div class="table-responsive" style="max-height: 470px;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Transaction Reference</th>
+                            <th>Transaction Date</th>
+                            <th>Duration Date</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($sales as $sale): ?>
+                            <?php if($sale['status'] == 'pending'): ?>
+                                <tr>
+                                    <td><button type="button" class="btn btn-warning" onclick="view_data(<?= $sale['id'] ?>)" data-bs-toggle="modal" data-bs-target="#view_data_modal"><?= $sale['transaction_reference'] ?></button></td>
+                                    <td><?= $sale['transaction_date'] ?></td>
+                                    <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
+                                    <td><?= $sale['amount'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="col">
-            <div class="bg-white shadow-sm rounded p-4 m-2 mx-0">
-                <h5>Cancelled</h5>
-                <div class="table-responsive" style="max-height: 310px;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Transaction Reference</th>
-                                <th>Transaction Date</th>
-                                <th>Duration Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($sales as $sale): ?>
-                                <?php if($sale['status'] == 'cancelled')   : ?>
-                                    <tr>
-                                        <td><button type="button" class="btn btn-warning" onclick="view_data(<?= $sale['id'] ?>)" data-bs-toggle="modal" data-bs-target="#view_data_modal"><?= $sale['transaction_reference'] ?></button></td>
-                                        <td><?= $sale['transaction_date'] ?></td>
-                                        <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
-                                        <td><?= $sale['amount'] ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+        <div id="confirmed" class="m-2 mt-4">
+            <div class="table-responsive" style="max-height: 470px;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Transaction Reference</th>
+                            <th>Transaction Date</th>
+                            <th>Duration Date</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($sales as $sale): ?>
+                            <?php if($sale['status'] == 'confirmed'): ?>
+                                <tr>
+                                    <td><button type="button" class="btn btn-warning" onclick="view_data(<?= $sale['id'] ?>)" data-bs-toggle="modal" data-bs-target="#view_data_modal"><?= $sale['transaction_reference'] ?></button></td>
+                                    <td><?= $sale['transaction_date'] ?></td>
+                                    <td><?= $sale['start_date'] ?> - <?= $sale['end_date'] ?></td>
+                                    <td><?= $sale['amount'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

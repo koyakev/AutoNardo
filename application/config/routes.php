@@ -81,6 +81,7 @@ $route['admin/cars_add'] = 'AdminController/cars_add';
 $route['admin/cars_store'] = 'AdminController/cars_store';
 $route['admin/car_view/(:any)'] = 'AdminController/car_view/$1';
 $route['admin/car_view/(:any)/edit'] = 'AdminController/car_update/$1';
+$route['admin/car_view/(:any)/delete'] = 'AdminController/car_delete/$1';
 
 $route['admin/users_list'] = 'AdminController/users_list';
 $route['admin/user_view/(:any)'] = 'AdminController/user_view/$1';

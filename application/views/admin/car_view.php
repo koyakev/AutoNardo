@@ -89,9 +89,9 @@
             </div>
             
             <div class="modal-footer">
-                <form method="POST">
+                <form method="POST" action="<?= site_url('admin/car_view/' . $car['id'] . '/delete') ?>">
                     <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-dark">Delete</button>
+                    <button class="btn btn-dark">Delete</button>
                 </form>
             </div>
         </div>

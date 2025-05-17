@@ -145,6 +145,22 @@
                     console.log($(this).data('id'));
                 })
 
+                $("#confirmed").css({ "display" : "none" });
+
+                $("#btn_confirmed").on('click', function() {
+                    $("#pending").css({ "display" : "none" });
+                    $("#confirmed").css({ "display" : "block" });
+                    $("#btn_confirmed").prop('class', 'btn btn-dark');
+                    $("#btn_pending").prop('class', 'btn btn-outline-dark');
+                });
+
+                $("#btn_pending").on('click', function() {
+                    $("#pending").css({ "display" : "block" });
+                    $("#confirmed").css({ "display" : "none" });
+                    $("#btn_pending").prop('class', 'btn btn-dark');
+                    $("#btn_confirmed").prop('class', 'btn btn-outline-dark');
+                });
+
             });
             
             function view_data(data) {

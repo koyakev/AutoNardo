@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `transaction_status` varchar(255) NOT NULL,
   `transaction_date` timestamp NOT NULL,
   `transaction_reference` varchar(255) NOT NULL,
+  `checkout_url` varchar(255),
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`),

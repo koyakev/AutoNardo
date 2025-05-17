@@ -39,6 +39,16 @@ class Car_model extends CI_Model {
         }
     }
 
+    public function delete_car($id) {
+        $car = $this->db->where('id', $id)->delete('cars');
+
+        if($car) {
+            return 'Car Deleted!';
+        } else {
+            return 'Failed to delete car.';
+        }
+    }
+
     public function get_available_cars() {
         return $this->db->where('is_available', 1)->from('cars')->get()->num_rows();
     }

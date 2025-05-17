@@ -113,6 +113,7 @@ class BookingController extends CI_Controller
 					'transaction_reference' => $responseData['data']['attributes']['payment_intent']['id'],
 					'created_at' => date('Y-m-d H:i:s'),
 					'updated_at' => date('Y-m-d H:i:s'),
+					'checkout_url' => $responseData['data']['attributes']['checkout_url'],
 				]);
 
 				// Redirect user to checkout page

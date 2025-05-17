@@ -150,10 +150,27 @@ class AdminController extends CI_Controller {
             $this->session->set_flashdata('message', $car_update);
             redirect('/admin/car_view/' . $id);
         } else {
+            $new_id = strtoupper($this->input->post('brand')[0]) . "-" . strtoupper(str_replace(" ", "_", $this->input->post('model'))) . "-" . $this->input->post('transmission')[0] . '-' . $this->input->post('plate_number');
+
+            $data = [
+                'id' => $new_id,
+                'plate_number' => $this->input->post('plate_number'),
+                'rental_price_per_day' => $this->input->post('rate'),
+                'updated_at' => date('Y:m:d H:i:s'),
+                // 'image' => $upload_data['file_name']
+            ];
+
             $car_update = $this->Car_model->update_car($id, $data);
             $this->session->set_flashdata('message', $car_update);
-            redirect('/admin/car_view/' . $id);
+            redirect('/admin/car_view/' . $new_id);
         }
+    }
+
+    public function car_delete($id) {
+        $car_delete = $this->Car_model->delete_car($id);
+
+        $this->session->set_flashdata('message', $car_delete);
+        redirect('admin/cars_list');
     }
 
     public function car_view($id) {
